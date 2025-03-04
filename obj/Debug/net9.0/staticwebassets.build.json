@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "7KLVhxoPTis3XC3fg2dzjfwuDRzM7TaODxui+Eyj0hY=",
+  "Source": "OrderServiceJsonRpc",
+  "BasePath": "_content/OrderServiceJsonRpc",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
