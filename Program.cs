@@ -3,9 +3,22 @@ using OrderServiceJsonRpc.Controllers;
 using OrderServiceJsonRpc.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.MapPost("/rpc", async (HttpContext context) =>
 {
@@ -21,13 +34,13 @@ app.MapPost("/rpc", async (HttpContext context) =>
     var orderController = new OrderController();
 
     var response = new JsonRpcResponse();
-    
+
     if (request?.Method == "createOrder" && request.Params.ValueKind != JsonValueKind.Undefined)
     {
         var customerId = request.Params.GetProperty("customerId").GetInt32();
         var item = request.Params.GetProperty("item").GetString() ?? string.Empty;
         var quantity = request.Params.GetProperty("quantity").GetInt32();
-        
+
         var order = orderController.CreateOrder(customerId, item, quantity);
         response = new JsonRpcResponse
         {
